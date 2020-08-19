@@ -25,18 +25,6 @@ class TelaInicio extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-    this.verify();
-    /* const hash = CryptoJS.MD5(this.state.email); */
-    /* console.log(hash) */
-    if (event.target.name === 'email') {
-      this.converteToHash(this.state.hash);
-    }
-  }
-
   verify() {
     if (this.state.nome !== '' && this.state.email !== '') {
       this.setState({ button: false });
@@ -58,6 +46,18 @@ class TelaInicio extends React.Component {
   componentDidMount() {
     const { getToken } = this.props;
     getToken();
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+    this.verify();
+    /* const hash = CryptoJS.MD5(this.state.email); */
+    /* console.log(hash) */
+    if (event.target.name === 'email') {
+      this.converteToHash(this.state.hash);
+    }
   }
 
   render() {
@@ -83,6 +83,16 @@ class TelaInicio extends React.Component {
     );
   }
 }
+
+TelaInicio.propTypes = {
+  token: PropTypes.string,
+  getToken: PropTypes.func.isRequired,
+  getQuestions: PropTypes.func.isRequired,
+};
+
+TelaInicio.defaultProps = {
+  token: '',
+};
 
 const mapStateToProps = (state) => ({
   isFetching: state.token.isFetching,
