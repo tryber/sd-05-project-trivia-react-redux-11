@@ -1,4 +1,4 @@
-import { LOAD_PLAYER }from '../action/loadPlayer';
+import { LOAD_PLAYER } from '../action/loadPlayer';
 import { ADD_SCORE } from '../action/addScore';
 
 const INITIAL_STATE = {
