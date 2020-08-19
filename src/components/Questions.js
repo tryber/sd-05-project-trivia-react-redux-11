@@ -6,7 +6,7 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      questionPosition: 0,
     };
   }
 
