@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import MD5 from 'crypto-js/md5';
 import CryptoJS from 'crypto-js';
-
+import PropTypes from 'prop-types';
 
 // import sha256 from 'crypto-js/sha256';
 // import hmacSHA512 from 'crypto-js/hmac-sha512';
@@ -25,12 +25,6 @@ class TelaInicio extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  verify() {
-    if (this.state.nome !== '' && this.state.email !== '') {
-      this.setState({ button: false });
-    }
-  }
-
   converteToHash(email) {
     this.setState({
       hash: CryptoJS.MD5(email),
@@ -46,6 +40,12 @@ class TelaInicio extends React.Component {
   componentDidMount() {
     const { getToken } = this.props;
     getToken();
+  }
+
+  verify() {
+    if (this.state.nome !== '' && this.state.email !== '') {
+      this.setState({ button: false });
+    }
   }
 
   handleChange(event) {
