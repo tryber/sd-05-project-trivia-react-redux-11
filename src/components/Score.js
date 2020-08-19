@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.token.isFetching,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = () => ({
 
 });
 
