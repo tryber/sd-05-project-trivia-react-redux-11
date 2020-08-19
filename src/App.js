@@ -18,7 +18,6 @@ export default function App() {
           <Route path="/ranking" component={Ranking} />
           <Route path="/questions" component={Questions} />
         </Switch>
-        <TelaInicio />
       </header>
     </div>
   );
