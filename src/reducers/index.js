@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import getToken from './getToken';
+import token from './token';
+import questions from './questions';
 
 export default combineReducers({
-  getToken
+  token,
+  questions,
 });
