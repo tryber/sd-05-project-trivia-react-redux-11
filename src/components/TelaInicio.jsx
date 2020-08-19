@@ -1,14 +1,14 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-// import MD5 from 'crypto-js/md5';
 import CryptoJS from 'crypto-js';
 import PropTypes from 'prop-types';
 
-// import sha256 from 'crypto-js/sha256';
-// import hmacSHA512 from 'crypto-js/hmac-sha512';
-// import Base64 from 'crypto-js/enc-base64';
+
 import { fetchToken } from '../action/fetchToken';
 import { fetchQuestions } from '../action/fetchTriviaQuestions';
+
+const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 class TelaInicio extends React.Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class TelaInicio extends React.Component {
       nome: '',
       email: '',
       hash: '',
+      redirect: false,
     };
     this.verify = this.verify.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -38,13 +39,19 @@ class TelaInicio extends React.Component {
 
   handleClick() {
     const { token, getQuestions } = this.props;
-    console.log(token);
     getQuestions(token);
+    this.setState({
+      redirect: true,
+    })
   }
 
   verify() {
-    if (this.state.nome !== '' && this.state.email !== '') {
+    if (this.state.nome !== '' && regexEmail.test(this.state.email) === true) {
       this.setState({ button: false });
+    } else {
+      this.setState({
+        button: true,
+      })
     }
   }
 
@@ -52,6 +59,9 @@ class TelaInicio extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
+    localStorage.setItem('name', this.state.nome);
+    const emailHash = CryptoJS.MD5(this.state.email);
+    localStorage.setItem('EmailMD5', emailHash);
     this.verify();
     /* const hash = CryptoJS.MD5(this.state.email); */
     /* console.log(hash) */
@@ -61,6 +71,7 @@ class TelaInicio extends React.Component {
   }
 
   render() {
+    if (this.state.redirect) return <Redirect to="/questions" />;
     return (
       <div>
         <label htmlFor="nome">Nome:</label>
