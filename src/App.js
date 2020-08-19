@@ -1,11 +1,11 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import logo from './trivia.png';
 import './App.css';
 import TelaInicio from './components/TelaInicio';
 import Score from './components/Score';
 import Ranking from './components/Ranking';
 import Questions from './components/Questions';
-import { Switch, Route } from 'react-router-dom';
 
 export default function App() {
   return (
@@ -20,7 +20,6 @@ export default function App() {
         </Switch>
         <TelaInicio />
       </header>
-      
     </div>
   );
 }

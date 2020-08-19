@@ -5,14 +5,14 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-     
+
     };
   }
 
   render() {
     return (
       <div>
-        Question{this.props.isFetching}
+        Question
       </div>
     );
   }

@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   token: {},
 };
 
-const getToken = (state = INITIAL_STATE, action) => {
+const token = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REQUEST_TOKEN:
       return {
@@ -33,4 +33,4 @@ const getToken = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default getToken;
+export default token;
