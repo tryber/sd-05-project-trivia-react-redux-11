@@ -1,7 +1,5 @@
-import {
-  LOAD_PLAYER,
-  ADD_SCORE,
-} from '../action/fetchTriviaQuestions';
+import { LOAD_PLAYER } from '../action/loadPlayer';
+import { ADD_SCORE } from '../action/addScore';
 
 const INITIAL_STATE = {
   name: '',

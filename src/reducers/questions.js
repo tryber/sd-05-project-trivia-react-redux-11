@@ -4,9 +4,12 @@ import {
   REQUEST_QUESTIONS,
 } from '../action/fetchTriviaQuestions';
 
+import { CHANGE_QUESTION_POSITION } from '../action/changePosition';
+
 const INITIAL_STATE = {
   isFetching: false,
   questions: {},
+  questionPosition: 0,
 };
 
 const questions = (state = INITIAL_STATE, action) => {
@@ -27,6 +30,11 @@ const questions = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.error,
         isFetching: false,
+      };
+    case CHANGE_QUESTION_POSITION:
+      return {
+        ...state,
+        questionPosition: state.questionPosition + 1,
       };
     default:
       return state;
