@@ -1,11 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 // import MD5 from 'crypto-js/md5';
 import CryptoJS from 'crypto-js';
+
 
 // import sha256 from 'crypto-js/sha256';
 // import hmacSHA512 from 'crypto-js/hmac-sha512';
 // import Base64 from 'crypto-js/enc-base64';
-
+import { fetchToken } from '../action/fetchToken';
+import { fetchQuestions } from '../action/fetchTriviaQuestions';
 
 class TelaInicio extends React.Component {
   constructor(props) {
@@ -17,11 +20,12 @@ class TelaInicio extends React.Component {
       hash: '',
     };
     this.verify = this.verify.bind(this);
-    this.setVerify = this.setVerify.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.converteToHash = this.converteToHash.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  setVerify(event) {
+  handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -45,23 +49,33 @@ class TelaInicio extends React.Component {
     });
   }
 
+  handleClick() {
+    const { token, getQuestions } = this.props;
+    console.log(token);
+    getQuestions(token);
+  }
+
+  componentDidMount() {
+    const { getToken } = this.props;
+    getToken();
+  }
+
   render() {
-    console.log(CryptoJS.MD5('teste'));
     return (
       <div>
         <label htmlFor="nome">Nome:</label>
         <input
           id="nome"
           data-testid="input-player-name"
-          onChange={this.setVerify} name="nome"
+          onChange={this.handleChange} name="nome"
         />
         <label htmlFor="email">Email:</label>
         <input
           id="email"
           data-testid="input-gravatar-email"
-          onChange={this.setVerify} name="email"
+          onChange={this.handleChange} name="email"
         />
-        <button data-testid="btn-play" disabled={this.state.button}>
+        <button data-testid="btn-play" disabled={this.state.button} onClick={this.handleClick}>
           Jogar
         </button>
         <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="foto" />
@@ -70,4 +84,14 @@ class TelaInicio extends React.Component {
   }
 }
 
-export default TelaInicio;
+const mapStateToProps = (state) => ({
+  isFetching: state.token.isFetching,
+  token: state.token.token.token,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getToken: () => dispatch(fetchToken()),
+  getQuestions: (token) => dispatch(fetchQuestions(token)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TelaInicio);
