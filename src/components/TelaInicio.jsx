@@ -25,6 +25,11 @@ class TelaInicio extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidMount() {
+    const { getToken } = this.props;
+    getToken();
+  }
+
   converteToHash(email) {
     this.setState({
       hash: CryptoJS.MD5(email),
@@ -35,11 +40,6 @@ class TelaInicio extends React.Component {
     const { token, getQuestions } = this.props;
     console.log(token);
     getQuestions(token);
-  }
-
-  componentDidMount() {
-    const { getToken } = this.props;
-    getToken();
   }
 
   verify() {
