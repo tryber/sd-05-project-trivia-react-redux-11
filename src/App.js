@@ -6,6 +6,7 @@ import TelaInicio from './components/TelaInicio';
 import Score from './components/Score';
 import Ranking from './components/Ranking';
 import Questions from './components/Questions';
+import Feedback from './components/Feedback';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/score" component={Score} />
           <Route path="/ranking" component={Ranking} />
           <Route path="/questions" component={Questions} />
+          <Route path="/Feedback" component={Feedback} />
         </Switch>
       </header>
     </div>
