@@ -42,7 +42,7 @@ class TelaInicio extends React.Component {
     getQuestions(token);
     this.setState({
       redirect: true,
-    })
+    });
   }
 
   verify() {
@@ -51,7 +51,7 @@ class TelaInicio extends React.Component {
     } else {
       this.setState({
         button: true,
-      })
+      });
     }
   }
 
