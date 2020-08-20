@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import QuestionCard from '../components/QuestionCard';
 
@@ -31,3 +32,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Questions);
+
+Questions.propTypes = {
+  score: PropTypes.number.isRequired,
+};
