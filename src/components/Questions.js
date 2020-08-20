@@ -11,8 +11,10 @@ class Questions extends React.Component {
   }
 
   render() {
+    const { score } = this.props;
     return (
       <div>
+        <div>Score:{score}</div>
         <img src={`https://www.gravatar.com/avatar/${localStorage.getItem('EmailMD5')}`} alt="avatar" />
         <div>{localStorage.getItem('name')}</div>
         Question:
@@ -25,6 +27,7 @@ class Questions extends React.Component {
 const mapStateToProps = (state) => ({
   isFetching: state.token.isFetching,
   questions: state.questions.questions,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Questions);
