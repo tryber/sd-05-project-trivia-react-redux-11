@@ -1,12 +1,10 @@
 import React from 'react';
-import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import CryptoJS from 'crypto-js';
 import PropTypes from 'prop-types';
 
-
 import { fetchToken } from '../action/fetchToken';
-import { fetchQuestions } from '../action/fetchTriviaQuestions';
 
 const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
@@ -26,32 +24,25 @@ class TelaInicio extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    const { getToken } = this.props;
-    getToken();
-  }
-
   converteToHash(email) {
     this.setState({
       hash: CryptoJS.MD5(email),
     });
   }
 
-  handleClick() {
-    const { token, getQuestions } = this.props;
-    getQuestions(token);
-    this.setState({
-      redirect: true,
-    });
+  async handleClick() {
+    const { token, getToken } = this.props;
+    await getToken();
+    localStorage.setItem('token', token);
+    this.setState({ redirect: true });
   }
 
   verify() {
     if (this.state.nome !== '' && regexEmail.test(this.state.email) === true) {
       this.setState({ button: false });
+      this.converteToHash(this.state.email);
     } else {
-      this.setState({
-        button: true,
-      });
+      this.setState({ button: true });
     }
   }
 
@@ -112,7 +103,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getToken: () => dispatch(fetchToken()),
-  getQuestions: (token) => dispatch(fetchQuestions(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TelaInicio);
