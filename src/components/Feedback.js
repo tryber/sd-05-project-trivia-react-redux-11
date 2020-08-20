@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Feedback extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: 4,
-      score: 4,
-      correctQuestions: 0,
+
     };
     this.feedbackMessage = this.feedbackMessage.bind(this);
   }
 
   feedbackMessage() {
     let message = '';
-    if (this.state.score < 3) {
+    if (this.props.score < 3) {
       message = 'Podia ser melhor ...';
-    } else if (this.state.score >= 3) {
+    } else if (this.props.score >= 3) {
       message = 'Mandou bem!';
     }
     return (message);
@@ -41,17 +41,26 @@ class Feedback extends React.Component {
           {this.feedbackMessage()}
         </div>
         <div data-testid="header-score">
-          Score: {this.state.score}
+          Score: {this.props.score}
         </div>
         <div>
-          Correct Questions: {this.state.correctQuestions}
+          Correct Questions: {this.props.score}
         </div>
         <Link to="/">
-          <button data-testid="btn-play-again">Play Again!</button>
+          <button data-testid="btn-play-again">Jogar Novamente</button>
         </Link>
+        <button data-testid="btn-ranking">Ver Ranking</button>
       </div>
     );
   }
 }
 
-export default Feedback;
+const mapStateToProps = (state) => ({
+  score: state.player.score,
+});
+
+Feedback.propTypes = {
+  score: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps)(Feedback);
