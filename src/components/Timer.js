@@ -10,13 +10,13 @@ class Timer extends React.Component {
 
   componentDidMount() {
     if (this.state.count > 0) {
-      this.myInterval = setInterval(() => { 
-        this.setState(prevState => ({ count: prevState.count - 1 }))
+      this.myInterval = setInterval(() => {
+        this.setState((prevState) => ({ count: prevState.count - 1 }));
       }, 1000);
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     clearInterval(this.myInterval);
   }
 
