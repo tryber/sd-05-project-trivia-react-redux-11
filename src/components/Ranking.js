@@ -1,17 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 class Ranking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      redirect: false,
     };
+    this.redirectPage = this.redirectPage.bind(this);
+  }
+
+  redirectPage() {
+    this.setState({
+      redirect: true,
+    });
   }
 
   render() {
+    const player = JSON.parse(localStorage.getItem('player'));
+    // JSON.parse() converse uma string para um objeto JS, fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+    if (this.state.redirect) return <Redirect to="/" />;
     const hash = localStorage.getItem('EmailMD5');
     return (
       <div>
@@ -20,14 +30,14 @@ class Ranking extends React.Component {
         </header>
         <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
         <div>
-          Nome: {localStorage.getItem('name')}
+          Nome: {player.name}
         </div>
         <div>
-          Score: {this.props.score}
+          Score: {player.score}
         </div>
-        <Link to="/">
-          <button data-testid="btn-go-home">Inicio</button>
-        </Link>
+        <button data-testid="btn-go-home" onClick={this.redirectPage}>
+          Inicio
+        </button>
       </div>
     );
   }
