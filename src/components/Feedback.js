@@ -43,10 +43,8 @@ class Feedback extends React.Component {
     return (
       <div>
         <header>
-          <div data-testid="header-player-name">
-            {feedbackMessage()}
-            {player.name}
-          </div>
+          {feedbackMessage()}
+          <div data-testid="header-player-name">{player.name}</div>
           <div data-testid="feedback-total-score">Score: {player.score}</div>
           <div data-testid="feedback-total-question">
             Assertions: {player.assertions}
@@ -61,6 +59,12 @@ class Feedback extends React.Component {
             />
           </div>
         </header>
+        <button data-testid="btn-play-again" onClick={this.redirectInicio}>
+          Jogar Novamente
+        </button>
+        <button data-testid="btn-ranking" onClick={this.redirectRanking}>
+          Ver Ranking
+        </button>
       </div>
     );
   }
