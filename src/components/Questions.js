@@ -4,6 +4,27 @@ import { connect } from 'react-redux';
 import QuestionCard from '../components/QuestionCard';
 import { fetchQuestions } from '../action/fetchTriviaQuestions';
 
+// FUNÇÃO shuffle retirada da intenet. Ela serve para sortear a ordem das respostas das questões
+// Referência: https://bost.ocks.org/mike/shuffle/
+function shuffle(array) {
+  // this.setState({ array });
+  const arrayAnswers = array;
+  let m = arrayAnswers.length;
+  let t;
+  let i;
+  // While there remain elements to shuffle…
+  while (m) {
+    // Pick a remaining element…
+    m -= 1;
+    i = Math.floor(Math.random() * m);
+    // And swap it with the current element.
+    t = arrayAnswers[m];
+    arrayAnswers[m] = arrayAnswers[i];
+    arrayAnswers[i] = t;
+  }
+  return arrayAnswers;
+}
+
 class Questions extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +42,11 @@ class Questions extends React.Component {
   }
 
   render() {
+    const i = this.props.questionPosition;
+    if (!this.props.questions) return <div> Carregando Perguntas ...</div>;
+    const correctAnswer = this.props.questions[i].correct_answer;
+    const incorrectAnswers = this.props.questions[i].incorrect_answers;
+    const randomAnswer = shuffle(incorrectAnswers.concat(correctAnswer));
     const { score } = this.props;
     return (
       <div>
@@ -30,7 +56,7 @@ class Questions extends React.Component {
           src={`https://www.gravatar.com/avatar/${localStorage.getItem('EmailMD5')}`} alt="avatar"
         />
         <div data-testid="header-player-name">{localStorage.getItem('name')}</div>
-        <QuestionCard />
+        <QuestionCard randomAnswer={randomAnswer} />
       </div>
     );
   }
@@ -38,10 +64,11 @@ class Questions extends React.Component {
 
 const mapStateToProps = (state) => ({
   isFetching: state.token.isFetching,
-  questions: state.questions.questions,
+  questions: state.questions.questions.results,
   score: state.player.score,
   token: state.token.token.token,
   player: state.player,
+  questionPosition: state.questions.questionPosition,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -51,6 +78,8 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
 
 Questions.propTypes = {
+  questions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  questionPosition: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
   token: PropTypes.string.isRequired,
   getQuestions: PropTypes.func.isRequired,

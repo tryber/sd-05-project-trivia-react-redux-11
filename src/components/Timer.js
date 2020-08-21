@@ -16,6 +16,12 @@ class Timer extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.state.count === 0) {
+      clearInterval(this.myInterval);
+    }
+  }
+
   componentWillUnmount() {
     clearInterval(this.myInterval);
   }
