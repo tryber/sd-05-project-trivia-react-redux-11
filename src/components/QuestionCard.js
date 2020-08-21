@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import changePosition from '../action/changePosition';
 import addScore from '../action/addScore';
+import Timer from './Timer';
 
 // FUNÇÃO shuffle retirada da intenet. Ela serve para sortear a ordem das respostas das questões
 // Referência: https://bost.ocks.org/mike/shuffle/
@@ -42,10 +43,6 @@ class QuestionCard extends React.Component {
 
   componentDidMount() {
     this.timer = setInterval(this.endTime, 30000);
-  }
-
-  componentWillUnmount() {
-    /* clearInterval(this.timer) */
   }
 
   endTime() {
@@ -89,20 +86,21 @@ class QuestionCard extends React.Component {
     const correctAnswer = this.props.questions[i].correct_answer;
     const incorrectAnswers = this.props.questions[i].incorrect_answers;
     const randomAnswer = shuffle(incorrectAnswers.concat(correctAnswer));
+    let counter = -1;
     return (
       <div>
+        <Timer />
         <div>{type}</div>
         <div data-testid="question-category">{category}</div>
-        <div data-testid="question-test" >{question}</div>
+        <div data-testid="question-text" >{question}</div>
         <div>
           {randomAnswer.map((answer, index) => {
-            if (answer === correctAnswer) {
-              return this.buttonCorrect(answer, index);
-            }
+            if (answer === correctAnswer) return this.buttonCorrect(answer, index);
+            counter += 1;
             return (
               <button
                 className={this.state.wrong} onClick={this.clickIncorrect}
-                disabled={this.state.button} data-testid={`wrong-answer-${index}`}
+                disabled={this.state.button} data-testid={`wrong-answer-${counter}`}
               >
                 {answer}
               </button>);
