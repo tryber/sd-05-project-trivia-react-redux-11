@@ -36,8 +36,8 @@ class Feedback extends React.Component {
 
   render() {
     const player = JSON.parse(localStorage.getItem('player'));
-  // JSON.parse() converse uma string para um objeto JS, 
-  //fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+  // JSON.parse() converse uma string para um objeto JS,
+  // fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
     if (this.state.redirectInicio) return <Redirect to="/" />;
     else if (this.state.redirectRanking) return <Redirect to="/Ranking" />;
     return (
@@ -62,12 +62,8 @@ class Feedback extends React.Component {
         {feedbackMessage()}
         <div data-testid="header-score">Score: {this.props.score}</div>
         <div>Correct Questions: {this.props.score}</div>
-        <button data-testid="btn-play-again" onClick={this.redirectInicio}>
-          Jogar Novamente
-        </button>
-        <button data-testid="btn-ranking" onClick={this.redirectRanking}>
-          Ver Ranking
-        </button>
+        <button data-testid="btn-play-again" onClick={this.redirectInicio}>Jogar Novamente</button>
+        <button data-testid="btn-ranking" onClick={this.redirectRanking}>Ver Ranking</button>
       </div>
     );
   }
