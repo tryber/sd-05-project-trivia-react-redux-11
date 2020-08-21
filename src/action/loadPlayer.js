@@ -1,9 +1,10 @@
 export const LOAD_PLAYER = 'LOAD_PLAYER';
 
-const loadPlayer = (name, profilePicture) => ({
+const loadPlayer = (name, hash, email) => ({
   type: LOAD_PLAYER,
   name,
-  profilePicture,
+  hash,
+  email,
 });
 
 export default loadPlayer;

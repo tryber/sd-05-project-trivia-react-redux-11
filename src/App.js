@@ -7,6 +7,7 @@ import Score from './components/Score';
 import Ranking from './components/Ranking';
 import Questions from './components/Questions';
 import Feedback from './components/Feedback';
+import Settings from './components/Settings';
 
 export default function App() {
   return (
@@ -18,7 +19,8 @@ export default function App() {
           <Route path="/score" component={Score} />
           <Route path="/ranking" component={Ranking} />
           <Route path="/questions" component={Questions} />
-          <Route path="/Feedback" component={Feedback} />
+          <Route path="/feedback" component={Feedback} />
+          <Route path="/settings" component={Settings} />
         </Switch>
         <p>Sua vez</p>
       </header>
