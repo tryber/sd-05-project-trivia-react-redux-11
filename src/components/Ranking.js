@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
+// function rankingCard() {
+  // if (localStorage.getItem('state') === null) {
+  //   return (
+  //   <div>Ainda não existe pontuações disponíveis!</div>
+  //   )
+  // }
+  // const jogador = localStorage.getItem('state');
+  // if (localStorage.getItem('players') === null) localStorage.setItem()
+// }
+
 class Ranking extends React.Component {
   constructor(props) {
     super(props);
@@ -25,16 +35,10 @@ class Ranking extends React.Component {
     const hash = localStorage.getItem('EmailMD5');
     return (
       <div>
-        <header>
-          Ranking
-        </header>
+        <header>Ranking</header>
         <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
-        <div>
-          Nome: {state.player.name}
-        </div>
-        <div>
-          Score: {state.player.score}
-        </div>
+        <div>Nome: {state.player.name}</div>
+        <div>Score: {state.player.score}</div>
         <button data-testid="btn-go-home" onClick={this.redirectPage}>
           Inicio
         </button>
@@ -47,9 +51,7 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
 });
 
-const mapDispatchToProps = () => ({
-
-});
+const mapDispatchToProps = () => ({});
 
 Ranking.propTypes = {
   score: PropTypes.number.isRequired,
