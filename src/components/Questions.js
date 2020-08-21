@@ -21,13 +21,12 @@ class Questions extends React.Component {
     const { score } = this.props;
     return (
       <div>
-        <div data-testid="header-profile-picture">Score:{score}</div>
+        <div data-testid="header-score">Score:{score}</div>
         <img
-          data-testid="header-score"
+          data-testid="header-profile-picture"
           src={`https://www.gravatar.com/avatar/${localStorage.getItem('EmailMD5')}`} alt="avatar"
         />
         <div data-testid="header-player-name">{localStorage.getItem('name')}</div>
-        Question:
         <QuestionCard />
       </div>
     );
