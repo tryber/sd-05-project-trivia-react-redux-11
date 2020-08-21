@@ -5,27 +5,6 @@ import PropTypes from 'prop-types';
 import changePosition from '../action/changePosition';
 import addScore from '../action/addScore';
 
-// FUNÇÃO shuffle retirada da intenet. Ela serve para sortear a ordem das respostas das questões
-// Referência: https://bost.ocks.org/mike/shuffle/
-function shuffle(array) {
-  // this.setState({ array });
-  const arrayAnswers = array;
-  let m = arrayAnswers.length;
-  let t;
-  let i;
-  // While there remain elements to shuffle…
-  while (m) {
-    // Pick a remaining element…
-    m -= 1;
-    i = Math.floor(Math.random() * m);
-    // And swap it with the current element.
-    t = arrayAnswers[m];
-    arrayAnswers[m] = arrayAnswers[i];
-    arrayAnswers[i] = t;
-  }
-  return arrayAnswers;
-}
-
 class QuestionCard extends React.Component {
   constructor(props) {
     super(props);
@@ -52,7 +31,6 @@ class QuestionCard extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state.timer);
     if (this.state.timer === 0) {
       clearInterval(this.myInterval);
     }
@@ -129,10 +107,8 @@ class QuestionCard extends React.Component {
     if (this.state.redirect) return <Redirect to="./feedback" />;
     const i = this.props.questionPosition;
     if (!this.props.questions) return <div> Carregando Perguntas ...</div>;
-    const correctAnswer = this.props.questions[i].correct_answer;
-    const incorrectAnswers = this.props.questions[i].incorrect_answers;
-    const randomAnswer = shuffle(incorrectAnswers.concat(correctAnswer));
     let counter = -1;
+    const correctAnswer = this.props.questions[i].correct_answer;
     return (
       <div>
         <div>
@@ -141,7 +117,7 @@ class QuestionCard extends React.Component {
         <div data-testid="question-category">{this.props.questions[i].category}</div>
         <div data-testid="question-text" >{this.props.questions[i].question}</div>
         <div>
-          {randomAnswer.map((answer, index) => {
+          {this.props.randomAnswer.map((answer, index) => {
             if (answer === correctAnswer) return this.buttonCorrect(answer, index);
             counter += 1;
             return (
@@ -178,6 +154,7 @@ QuestionCard.propTypes = {
   questionPosition: PropTypes.number.isRequired,
   changePositions: PropTypes.func.isRequired,
   addScores: PropTypes.func.isRequired,
+  randomAnswer: PropTypes.arrayOf(PropTypes.string).isRequired,
   player: PropTypes.shape({
     name: PropTypes.string,
     hash: PropTypes.string,
