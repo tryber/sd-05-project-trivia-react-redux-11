@@ -39,7 +39,7 @@ class TelaInicio extends React.Component {
     localStorage.setItem('token', token);
     this.setState({ redirect: true });
     const { nome, hash, email } = this.state;
-    savePlayer(nome, hash, email);
+    await savePlayer(nome, hash, email);
   }
 
   verify() {
