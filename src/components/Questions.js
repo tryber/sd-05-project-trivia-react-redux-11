@@ -13,8 +13,11 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    const { token, getQuestions } = this.props;
+    const { token, getQuestions, player } = this.props;
     getQuestions(token);
+    const {name, assertions, gravatarEmail, score } = player;
+    const playerInfo = { name, assertions, score, gravatarEmail };
+    localStorage.setItem('player', JSON.stringify(playerInfo));
   }
 
   render() {
@@ -38,6 +41,7 @@ const mapStateToProps = (state) => ({
   questions: state.questions.questions,
   score: state.player.score,
   token: state.token.token.token,
+  player: state.player,
 });
 
 const mapDispatchToProps = (dispatch) => ({
