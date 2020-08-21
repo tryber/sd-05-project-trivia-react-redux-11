@@ -16,8 +16,8 @@ class Questions extends React.Component {
     const { token, getQuestions, player } = this.props;
     getQuestions(token);
     const { name, assertions, gravatarEmail, score } = player;
-    const playerInfo = { name, assertions, score, gravatarEmail };
-    localStorage.setItem('player', JSON.stringify(playerInfo));
+    const playerInfo = { player: { name, assertions, score, gravatarEmail } };
+    localStorage.setItem('state', JSON.stringify(playerInfo));
   }
 
   render() {
