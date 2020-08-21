@@ -54,13 +54,20 @@ class QuestionCard extends React.Component {
   }
 
   handleClick() {
-    const { questionPosition, questions, changePositions } = this.props;
+    const { questionPosition, questions, changePositions, player } = this.props;
     if (questionPosition < questions.length - 1) {
       changePositions();
     } else {
       this.setState({ redirect: true });
     }
     this.setState({ button: false, right: '', wrong: '', buttonNext: false });
+    const {name, assertions, gravatarEmail, score } = player;
+    localStorage.setItem('player', {
+      name,
+      assertions,
+      score,
+      gravatarEmail
+    });
   }
 
   clickCorrect() {
@@ -127,6 +134,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.token.isFetching,
   questions: state.questions.questions.results,
   questionPosition: state.questions.questionPosition,
+  player: state.player,
 });
 
 const mapDispatchToProps = (dispatch) => ({

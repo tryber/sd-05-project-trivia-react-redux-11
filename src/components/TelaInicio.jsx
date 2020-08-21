@@ -5,6 +5,7 @@ import CryptoJS from 'crypto-js';
 import PropTypes from 'prop-types';
 
 import { fetchToken } from '../action/fetchToken';
+import loadPlayer from '../action/loadPlayer';
 
 const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
@@ -33,10 +34,12 @@ class TelaInicio extends React.Component {
   }
 
   async handleClick() {
-    const { token, getToken } = this.props;
+    const { token, getToken, savePlayer } = this.props;
     await getToken();
     localStorage.setItem('token', token);
     this.setState({ redirect: true });
+    const { nome, hash, email } = this.state;
+    savePlayer(nome, hash, email);
   }
 
   verify() {
@@ -106,6 +109,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getToken: () => dispatch(fetchToken()),
+  savePlayer: (name, picture, email) => dispatch(loadPlayer(name, picture, email)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TelaInicio);

@@ -3,8 +3,10 @@ import { ADD_SCORE } from '../action/addScore';
 
 const INITIAL_STATE = {
   name: '',
-  profilePicture: '',
+  hash: '',
   score: 0,
+  assertions: 0,
+  gravatarEmail: '',
   logged: false,
 };
 
@@ -14,12 +16,14 @@ const player = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         name: action.name,
-        profilePicture: action.picture,
+        hash: action.hash,
+        gravatarEmail: action.email,
       };
     case ADD_SCORE:
       return {
         ...state,
         score: state.score + action.score,
+        assertions: state.assertions + 1,
       };
     default:
       return state;
