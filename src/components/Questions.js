@@ -15,7 +15,7 @@ class Questions extends React.Component {
   componentDidMount() {
     const { token, getQuestions, player } = this.props;
     getQuestions(token);
-    const {name, assertions, gravatarEmail, score } = player;
+    const { name, assertions, gravatarEmail, score } = player;
     const playerInfo = { name, assertions, score, gravatarEmail };
     localStorage.setItem('player', JSON.stringify(playerInfo));
   }
@@ -60,7 +60,6 @@ Questions.propTypes = {
     score: PropTypes.number,
     assertions: PropTypes.number,
     gravatarEmail: PropTypes.string,
-    logged: PropTypes.bool,
   }).isRequired,
 };
 
