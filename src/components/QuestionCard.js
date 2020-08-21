@@ -62,8 +62,8 @@ class QuestionCard extends React.Component {
     }
     this.setState({ button: false, right: '', wrong: '', buttonNext: false });
     const { name, assertions, gravatarEmail, score } = player;
-    const playerInfo = { name, assertions, score, gravatarEmail };
-    localStorage.setItem('player', JSON.stringify(playerInfo));
+    const playerInfo = { player: { name, assertions, score, gravatarEmail } };
+    localStorage.setItem('state', JSON.stringify(playerInfo));
   }
 
   clickCorrect() {
