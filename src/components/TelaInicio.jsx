@@ -29,7 +29,7 @@ class TelaInicio extends React.Component {
     this.redirectRank = this.redirectRank.bind(this);
   }
 
-  redirectRank(){
+  redirectRank() {
     this.setState({
       rank: true,
     });
