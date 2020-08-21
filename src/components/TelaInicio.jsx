@@ -80,7 +80,6 @@ class TelaInicio extends React.Component {
         <button data-testid="btn-play" disabled={this.state.button} onClick={this.handleClick}>
           Jogar
         </button>
-        <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="foto" />
       </div>
     );
   }
