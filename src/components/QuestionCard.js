@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import changePosition from '../action/changePosition';
 import addScore from '../action/addScore';
-import Timer from './Timer';
 
 // FUNÇÃO shuffle retirada da intenet. Ela serve para sortear a ordem das respostas das questões
 // Referência: https://bost.ocks.org/mike/shuffle/
@@ -36,6 +35,7 @@ class QuestionCard extends React.Component {
       wrong: '',
       buttonNext: false,
       redirect: false,
+      timer: 30,
     };
     this.handleClick = this.handleClick.bind(this);
     this.clickCorrect = this.clickCorrect.bind(this);
@@ -43,10 +43,27 @@ class QuestionCard extends React.Component {
     this.endTime = this.endTime.bind(this);
     this.buttonCorrect = this.buttonCorrect.bind(this);
     this.buttonNext = this.buttonNext.bind(this);
+    this.changeState = this.changeState.bind(this);
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.endTime, 30000);
+    this.myInterval = setInterval(this.changeState, 1000);
+    setTimeout(this.endTime, 30000);
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.timer);
+    if (this.state.timer === 0) {
+      clearInterval(this.myInterval);
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.myInterval);
+  }
+
+  changeState() {
+    this.setState((prevState) => ({ timer: prevState.timer - 1 }));
   }
 
   endTime() {
@@ -64,16 +81,30 @@ class QuestionCard extends React.Component {
     const { name, assertions, gravatarEmail, score } = player;
     const playerInfo = { player: { name, assertions, score, gravatarEmail } };
     localStorage.setItem('state', JSON.stringify(playerInfo));
+    this.setState({ timer: 30 });
+    this.myInterval = setInterval(this.changeState, 1000);
   }
 
   clickCorrect() {
-    const { addScores } = this.props;
-    addScores(10);
+    const { addScores, questions, questionPosition } = this.props;
+    const difficulty = questions[questionPosition].difficulty;
+    let level = 0;
+    if (difficulty === 'hard') {
+      level = 3;
+    } else if (difficulty === 'medium') {
+      level = 2;
+    } else if (difficulty === 'easy') {
+      level = 1;
+    }
+    const questionScore = (10 + (this.state.timer * level));
+    addScores(questionScore);
     this.endTime();
+    clearInterval(this.myInterval);
   }
 
   clickIncorrect() {
     this.setState({ button: true, right: 'right', wrong: 'wrong', buttonNext: true });
+    clearInterval(this.myInterval);
   }
 
   buttonCorrect(correctAnswer, index) {
@@ -104,7 +135,9 @@ class QuestionCard extends React.Component {
     let counter = -1;
     return (
       <div>
-        <Timer />
+        <div>
+         Tempo:{this.state.timer}
+        </div>
         <div data-testid="question-category">{this.props.questions[i].category}</div>
         <div data-testid="question-text" >{this.props.questions[i].question}</div>
         <div>
