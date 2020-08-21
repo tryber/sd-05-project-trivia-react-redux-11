@@ -49,4 +49,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(Questions);
 
 Questions.propTypes = {
   score: PropTypes.number.isRequired,
+  token: PropTypes.string.isRequired,
+  getQuestions: PropTypes.func.isRequired,
+};
+
+Questions.defaultProps = {
+  token: '',
 };

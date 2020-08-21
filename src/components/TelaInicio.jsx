@@ -89,7 +89,6 @@ class TelaInicio extends React.Component {
 TelaInicio.propTypes = {
   token: PropTypes.string,
   getToken: PropTypes.func.isRequired,
-  getQuestions: PropTypes.func.isRequired,
 };
 
 TelaInicio.defaultProps = {
