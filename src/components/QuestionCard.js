@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import changePosition from '../action/changePosition';
 import addScore from '../action/addScore';
 import Timer from './Timer';
-import { Redirect } from 'react-router-dom';
 
 // FUNÇÃO shuffle retirada da intenet. Ela serve para sortear a ordem das respostas das questões
 // Referência: https://bost.ocks.org/mike/shuffle/
@@ -50,7 +50,7 @@ class QuestionCard extends React.Component {
   }
 
   endTime() {
-    this.setState({ button: true, right: 'right', wrong: 'wrong', buttonNext: true, });
+    this.setState({ button: true, right: 'right', wrong: 'wrong', buttonNext: true });
   }
 
   handleClick() {
@@ -58,9 +58,9 @@ class QuestionCard extends React.Component {
     if (questionPosition < questions.length - 1) {
       changePositions();
     } else {
-      this.setState({ redirect: true, })
+      this.setState({ redirect: true });
     }
-    this.setState({ button: false, right: '', wrong: '', buttonNext: false, });
+    this.setState({ button: false, right: '', wrong: '', buttonNext: false });
   }
 
   clickCorrect() {
@@ -70,7 +70,7 @@ class QuestionCard extends React.Component {
   }
 
   clickIncorrect() {
-    this.setState({ button: true, right: 'right', wrong: 'wrong', buttonNext: true, });
+    this.setState({ button: true, right: 'right', wrong: 'wrong', buttonNext: true });
   }
 
   buttonCorrect(correctAnswer, index) {
@@ -86,13 +86,13 @@ class QuestionCard extends React.Component {
   }
 
   buttonNext() {
-    return(
+    return (
       <button data-testid="btn-next" onClick={this.handleClick}>Próximo</button>
     );
   }
 
   render() {
-    if (this.state.redirect) return <Redirect to="./feedback" />
+    if (this.state.redirect) return <Redirect to="./feedback" />;
     const i = this.props.questionPosition;
     if (!this.props.questions) return <div> Carregando Perguntas ...</div>;
     const correctAnswer = this.props.questions[i].correct_answer;
