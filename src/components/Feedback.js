@@ -36,19 +36,21 @@ class Feedback extends React.Component {
 
   render() {
     const player = JSON.parse(localStorage.getItem('player'));
-  // JSON.parse() converse uma string para um objeto JS,
-  // fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+    // JSON.parse() converse uma string para um objeto JS,
+    // fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
     if (this.state.redirectInicio) return <Redirect to="/" />;
     else if (this.state.redirectRanking) return <Redirect to="/Ranking" />;
     return (
       <div>
         <header>
           <div data-testid="header-player-name">
-          {feedbackMessage()}
+            {feedbackMessage()}
             {player.name}
           </div>
           <div data-testid="feedback-total-score">Score: {player.score}</div>
-          <div data-testid="feedback-total-question">Assertions: {player.assertions}</div>
+          <div data-testid="feedback-total-question">
+            Assertions: {player.assertions}
+          </div>
           <div>
             <img
               data-testid="header-profile-picture"
