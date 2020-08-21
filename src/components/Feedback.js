@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function feedbackMessage() {
-  const player = JSON.parse(localStorage.getItem('player'));
+  const state = JSON.parse(localStorage.getItem('state'));
   // JSON.parse() converse uma string para um objeto JS, fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
   let message = '';
-  if (player.assertions < 3) {
+  if (state.player.assertions < 3) {
     message = 'Podia ser melhor...';
-  } else if (player.assertions >= 3) {
+  } else if (state.player.assertions >= 3) {
     message = 'Mandou bem!';
   }
   return <div data-testid="feedback-text">{message}</div>;
