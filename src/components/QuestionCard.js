@@ -27,7 +27,7 @@ class QuestionCard extends React.Component {
 
   componentDidMount() {
     this.myInterval = setInterval(this.changeState, 1000);
-    setTimeout(this.endTime, 30000);
+    this.timer = setTimeout(this.endTime, 30000);
   }
 
   componentDidUpdate() {
@@ -61,6 +61,8 @@ class QuestionCard extends React.Component {
     localStorage.setItem('state', JSON.stringify(playerInfo));
     this.setState({ timer: 30 });
     this.myInterval = setInterval(this.changeState, 1000);
+    clearInterval(this.timer);
+    this.timer = setTimeout(this.endTime, 30000);
   }
 
   clickCorrect() {
