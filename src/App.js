@@ -18,7 +18,7 @@ export default function App() {
           <Route path="/score" component={Score} />
           <Route path="/ranking" component={Ranking} />
           <Route path="/questions" component={Questions} />
-          <Route path="/Feedback" component={Feedback} />
+          <Route path="/feedback" component={Feedback} />
         </Switch>
         <p>Sua vez</p>
       </header>
