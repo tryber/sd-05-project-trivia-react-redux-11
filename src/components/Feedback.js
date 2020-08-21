@@ -14,9 +14,9 @@ class Feedback extends React.Component {
 
   feedbackMessage() {
     let message = '';
-    if (this.props.score < 3) {
+    if (this.props.score <= 3) {
       message = 'Podia ser melhor ...';
-    } else if (this.props.score >= 3) {
+    } else if (this.props.score > 3) {
       message = 'Mandou bem!';
     }
     return (message);
