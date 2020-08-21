@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import changePosition from '../action/changePosition';
 import addScore from '../action/addScore';
@@ -33,12 +34,15 @@ class QuestionCard extends React.Component {
       button: false,
       right: '',
       wrong: '',
+      buttonNext: false,
+      redirect: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.clickCorrect = this.clickCorrect.bind(this);
     this.clickIncorrect = this.clickIncorrect.bind(this);
     this.endTime = this.endTime.bind(this);
     this.buttonCorrect = this.buttonCorrect.bind(this);
+    this.buttonNext = this.buttonNext.bind(this);
   }
 
   componentDidMount() {
@@ -46,15 +50,20 @@ class QuestionCard extends React.Component {
   }
 
   endTime() {
-    this.setState({ button: true, right: 'right', wrong: 'wrong' });
+    this.setState({ button: true, right: 'right', wrong: 'wrong', buttonNext: true });
   }
 
   handleClick() {
-    const { questionPosition, questions, changePositions } = this.props;
+    const { questionPosition, questions, changePositions, player } = this.props;
     if (questionPosition < questions.length - 1) {
       changePositions();
+    } else {
+      this.setState({ redirect: true });
     }
-    this.setState({ button: false, right: '', wrong: '' });
+    this.setState({ button: false, right: '', wrong: '', buttonNext: false });
+    const { name, assertions, gravatarEmail, score } = player;
+    const playerInfo = { name, assertions, score, gravatarEmail };
+    localStorage.setItem('player', JSON.stringify(playerInfo));
   }
 
   clickCorrect() {
@@ -64,7 +73,7 @@ class QuestionCard extends React.Component {
   }
 
   clickIncorrect() {
-    this.setState({ button: true, right: 'right', wrong: 'wrong' });
+    this.setState({ button: true, right: 'right', wrong: 'wrong', buttonNext: true });
   }
 
   buttonCorrect(correctAnswer, index) {
@@ -79,10 +88,16 @@ class QuestionCard extends React.Component {
     );
   }
 
+  buttonNext() {
+    return (
+      <button data-testid="btn-next" onClick={this.handleClick}>Próximo</button>
+    );
+  }
+
   render() {
+    if (this.state.redirect) return <Redirect to="./feedback" />;
     const i = this.props.questionPosition;
     if (!this.props.questions) return <div> Carregando Perguntas ...</div>;
-    const { type, category, question } = this.props.questions[i];
     const correctAnswer = this.props.questions[i].correct_answer;
     const incorrectAnswers = this.props.questions[i].incorrect_answers;
     const randomAnswer = shuffle(incorrectAnswers.concat(correctAnswer));
@@ -90,9 +105,8 @@ class QuestionCard extends React.Component {
     return (
       <div>
         <Timer />
-        <div>{type}</div>
-        <div data-testid="question-category">{category}</div>
-        <div data-testid="question-text" >{question}</div>
+        <div data-testid="question-category">{this.props.questions[i].category}</div>
+        <div data-testid="question-text" >{this.props.questions[i].question}</div>
         <div>
           {randomAnswer.map((answer, index) => {
             if (answer === correctAnswer) return this.buttonCorrect(answer, index);
@@ -106,7 +120,7 @@ class QuestionCard extends React.Component {
               </button>);
           })}
         </div>
-        <button data-testid="btn-next" onClick={this.handleClick}>Próximo</button>
+        {this.state.buttonNext && this.buttonNext()}
       </div>
     );
   }
@@ -116,6 +130,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.token.isFetching,
   questions: state.questions.questions.results,
   questionPosition: state.questions.questionPosition,
+  player: state.player,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -130,4 +145,12 @@ QuestionCard.propTypes = {
   questionPosition: PropTypes.number.isRequired,
   changePositions: PropTypes.func.isRequired,
   addScores: PropTypes.func.isRequired,
+  player: PropTypes.shape({
+    name: PropTypes.string,
+    hash: PropTypes.string,
+    score: PropTypes.number,
+    assertions: PropTypes.number,
+    gravatarEmail: PropTypes.string,
+    logged: PropTypes.bool,
+  }).isRequired,
 };

@@ -13,21 +13,23 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    const { token, getQuestions } = this.props;
+    const { token, getQuestions, player } = this.props;
     getQuestions(token);
+    const { name, assertions, gravatarEmail, score } = player;
+    const playerInfo = { name, assertions, score, gravatarEmail };
+    localStorage.setItem('player', JSON.stringify(playerInfo));
   }
 
   render() {
     const { score } = this.props;
     return (
       <div>
-        <div data-testid="header-profile-picture">Score:{score}</div>
+        <div data-testid="header-score">Score:{score}</div>
         <img
-          data-testid="header-score"
+          data-testid="header-profile-picture"
           src={`https://www.gravatar.com/avatar/${localStorage.getItem('EmailMD5')}`} alt="avatar"
         />
         <div data-testid="header-player-name">{localStorage.getItem('name')}</div>
-        Question:
         <QuestionCard />
       </div>
     );
@@ -39,6 +41,7 @@ const mapStateToProps = (state) => ({
   questions: state.questions.questions,
   score: state.player.score,
   token: state.token.token.token,
+  player: state.player,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -51,6 +54,13 @@ Questions.propTypes = {
   score: PropTypes.number.isRequired,
   token: PropTypes.string.isRequired,
   getQuestions: PropTypes.func.isRequired,
+  player: PropTypes.shape({
+    name: PropTypes.string,
+    hash: PropTypes.string,
+    score: PropTypes.number,
+    assertions: PropTypes.number,
+    gravatarEmail: PropTypes.string,
+  }).isRequired,
 };
 
 Questions.defaultProps = {
