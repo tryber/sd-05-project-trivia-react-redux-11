@@ -43,12 +43,11 @@ class Feedback extends React.Component {
     return (
       <div>
         <header>
+          <div data-testid="header-score">{player.score}</div>
           {feedbackMessage()}
           <div data-testid="header-player-name">{player.name}</div>
           <div data-testid="feedback-total-score">Score: {player.score}</div>
-          <div data-testid="feedback-total-question">
-            Assertions: {player.assertions}
-          </div>
+          <div data-testid="feedback-total-question">Assertions: {player.assertions}</div>
           <div>
             <img
               data-testid="header-profile-picture"
