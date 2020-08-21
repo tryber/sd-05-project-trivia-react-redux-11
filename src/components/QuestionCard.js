@@ -93,7 +93,7 @@ class QuestionCard extends React.Component {
       <div>
         <div>{type}</div>
         <div data-testid="question-category">{category}</div>
-        <div data-testid="question-test" >{question}</div>
+        <div data-testid="question-text" >{question}</div>
         <div>
           {randomAnswer.map((answer, index) => {
             if (answer === correctAnswer) {
