@@ -19,12 +19,20 @@ class TelaInicio extends React.Component {
       hash: '',
       redirect: false,
       settings: false,
+      rank: false,
     };
     this.verify = this.verify.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.converteToHash = this.converteToHash.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.redirectSettings = this.redirectSettings.bind(this);
+    this.redirectRank = this.redirectRank.bind(this);
+  }
+
+  redirectRank(){
+    this.setState({
+      rank: true,
+    });
   }
 
   converteToHash(email) {
@@ -73,6 +81,7 @@ class TelaInicio extends React.Component {
   render() {
     if (this.state.redirect) return <Redirect to="/questions" />;
     if (this.state.settings) return <Redirect to="/settings" />;
+    if (this.state.rank) return <Redirect to="/Ranking" />;
     return (
       <div>
         <label htmlFor="nome">Nome:</label>
@@ -88,6 +97,7 @@ class TelaInicio extends React.Component {
         </button>
         <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="foto" />
         <button data-testid="btn-settings" onClick={this.redirectSettings}>Settings</button>
+        <button data-testid="ranking-title" onClick={this.redirectRank}>Ranking</button>
       </div>
     );
   }
