@@ -17,11 +17,13 @@ class TelaInicio extends React.Component {
       email: '',
       hash: '',
       redirect: false,
+      settings: false,
     };
     this.verify = this.verify.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.converteToHash = this.converteToHash.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.redirectSettings = this.redirectSettings.bind(this);
   }
 
   converteToHash(email) {
@@ -61,26 +63,28 @@ class TelaInicio extends React.Component {
     }
   }
 
+  redirectSettings() {
+    this.setState({ settings: true });
+  }
+
   render() {
     if (this.state.redirect) return <Redirect to="/questions" />;
+    if (this.state.settings) return <Redirect to="/settings" />;
     return (
       <div>
         <label htmlFor="nome">Nome:</label>
         <input
-          id="nome"
-          data-testid="input-player-name"
-          onChange={this.handleChange} name="nome"
+          id="nome" data-testid="input-player-name" onChange={this.handleChange} name="nome"
         />
         <label htmlFor="email">Email:</label>
         <input
-          id="email"
-          data-testid="input-gravatar-email"
-          onChange={this.handleChange} name="email"
+          id="email" data-testid="input-gravatar-email" onChange={this.handleChange} name="email"
         />
         <button data-testid="btn-play" disabled={this.state.button} onClick={this.handleClick}>
           Jogar
         </button>
         <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="foto" />
+        <button data-testid="btn-settings" onClick={this.redirectSettings}>Settings</button>
       </div>
     );
   }
