@@ -19,7 +19,7 @@ class Ranking extends React.Component {
   }
 
   render() {
-    const player = JSON.parse(localStorage.getItem('player'));
+    const state = JSON.parse(localStorage.getItem('state'));
     // JSON.parse() converse uma string para um objeto JS, fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
     if (this.state.redirect) return <Redirect to="/" />;
     const hash = localStorage.getItem('EmailMD5');
@@ -30,10 +30,10 @@ class Ranking extends React.Component {
         </header>
         <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
         <div>
-          Nome: {player.name}
+          Nome: {state.player.name}
         </div>
         <div>
-          Score: {player.score}
+          Score: {state.player.score}
         </div>
         <button data-testid="btn-go-home" onClick={this.redirectPage}>
           Inicio
