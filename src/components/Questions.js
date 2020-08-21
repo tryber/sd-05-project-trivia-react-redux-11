@@ -54,6 +54,14 @@ Questions.propTypes = {
   score: PropTypes.number.isRequired,
   token: PropTypes.string.isRequired,
   getQuestions: PropTypes.func.isRequired,
+  player: PropTypes.shape({
+    name: PropTypes.string,
+    hash: PropTypes.string,
+    score: PropTypes.number,
+    assertions: PropTypes.number,
+    gravatarEmail: PropTypes.string,
+    logged: PropTypes.bool,
+  }).isRequired,
 };
 
 Questions.defaultProps = {

@@ -62,7 +62,7 @@ class QuestionCard extends React.Component {
     }
     this.setState({ button: false, right: '', wrong: '', buttonNext: false });
     const {name, assertions, gravatarEmail, score } = player;
-    const playerInfo = { name, assertions, score, gravatarEmail };
+    const playerInfo = { name, assertions, score, gravatarEmail, };
     localStorage.setItem('player', JSON.stringify(playerInfo));
   }
 
@@ -145,4 +145,12 @@ QuestionCard.propTypes = {
   questionPosition: PropTypes.number.isRequired,
   changePositions: PropTypes.func.isRequired,
   addScores: PropTypes.func.isRequired,
+  player: PropTypes.shape({
+    name: PropTypes.string,
+    hash: PropTypes.string,
+    score: PropTypes.number,
+    assertions: PropTypes.number,
+    gravatarEmail: PropTypes.string,
+    logged: PropTypes.bool,
+  }).isRequired,
 };
