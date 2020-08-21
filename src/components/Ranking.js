@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Ranking extends React.Component {
   constructor(props) {
@@ -10,20 +12,37 @@ class Ranking extends React.Component {
   }
 
   render() {
+    const hash = localStorage.getItem('EmailMD5');
     return (
       <div>
-        Ranking
+        <header>
+          Ranking
+        </header>
+        <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
+        <div>
+          Nome: {localStorage.getItem('name')}
+        </div>
+        <div>
+          Score: {this.props.score}
+        </div>
+        <Link to="/">
+          <button data-testid="btn-go-home">Inicio</button>
+        </Link>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.token.isFetching,
+  score: state.player.score,
 });
 
 const mapDispatchToProps = () => ({
 
 });
+
+Ranking.propTypes = {
+  score: PropTypes.number.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ranking);
