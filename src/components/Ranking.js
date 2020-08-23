@@ -36,12 +36,12 @@ class Ranking extends React.Component {
     const hash = localStorage.getItem('EmailMD5');
     return (
       <div>
-        <header>Ranking</header>
-        {ranking.map((player) => (
+        <header data-testid="ranking-title">Ranking</header>
+        {ranking.map((player, index) => (
           <div>
             <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
-            <div>Nome: {player.name}</div>
-            <div>Score: {player.score}</div>
+            <div data-testid={`player-name-${index}`}>Nome: {player.name}</div>
+            <div data-testid={`player-score-${index}`}>Score: {player.score}</div>
           </div>
         ))}
         <button data-testid="btn-go-home" onClick={this.redirectPage}>
