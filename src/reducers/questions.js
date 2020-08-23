@@ -24,6 +24,7 @@ const questions = (state = INITIAL_STATE, action) => {
         ...state,
         questions: action.questions,
         isFetching: false,
+        questionPosition: 0,
       };
     case RECEIVE_QUESTIONS_FAILURE:
       return {
