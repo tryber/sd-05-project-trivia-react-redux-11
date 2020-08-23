@@ -36,8 +36,8 @@ class Feedback extends React.Component {
       name: player.player.name,
       score: player.player.score,
       picture: player.player.gravatarEmail,
-    }
-    const completeRanking = [ ...ranking, newPlayer ];
+    };
+    const completeRanking = [...ranking, newPlayer];
     localStorage.setItem('ranking', JSON.stringify(completeRanking));
   }
 

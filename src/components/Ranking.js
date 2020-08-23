@@ -29,15 +29,15 @@ class Ranking extends React.Component {
   }
 
   render() {
-    const state = JSON.parse(localStorage.getItem('state'));
-    let ranking = JSON.parse(localStorage.getItem('ranking'));
+    // const state = JSON.parse(localStorage.getItem('state'));
+    const ranking = JSON.parse(localStorage.getItem('ranking'));
     // JSON.parse() converse uma string para um objeto JS, fonte: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
     if (this.state.redirect) return <Redirect to="/" />;
     const hash = localStorage.getItem('EmailMD5');
     return (
       <div>
         <header>Ranking</header>
-        {ranking.map(player => (
+        {ranking.map((player) => (
           <div>
             <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
             <div>Nome: {player.name}</div>
