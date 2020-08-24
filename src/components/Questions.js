@@ -34,9 +34,8 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    const { token, getQuestions, player } = this.props;
+    const { token, getQuestions } = this.props;
     getQuestions(token);
-    
   }
 
   render() {
