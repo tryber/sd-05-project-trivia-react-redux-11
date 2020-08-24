@@ -61,7 +61,7 @@ class QuestionCard extends React.Component {
     localStorage.setItem('state', JSON.stringify(playerInfo));
     this.setState({ timer: 30 });
     this.myInterval = setInterval(this.changeState, 1000);
-    clearInterval(this.timer);
+    clearTimeout(this.timer);
     this.timer = setTimeout(this.endTime, 30000);
   }
 

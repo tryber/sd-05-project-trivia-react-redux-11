@@ -26,6 +26,21 @@ class Feedback extends React.Component {
     this.redirectRanking = this.redirectRanking.bind(this);
   }
 
+  componentDidMount() {
+    let ranking = JSON.parse(localStorage.getItem('ranking'));
+    const player = JSON.parse(localStorage.getItem('state'));
+    if (!ranking) {
+      ranking = [];
+    }
+    const newPlayer = {
+      name: player.player.name,
+      score: player.player.score,
+      picture: player.player.gravatarEmail,
+    };
+    const completeRanking = [...ranking, newPlayer];
+    localStorage.setItem('ranking', JSON.stringify(completeRanking));
+  }
+
   redirectRanking() {
     this.setState({ redirectRanking: true });
   }
