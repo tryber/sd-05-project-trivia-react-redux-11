@@ -39,11 +39,11 @@ class Ranking extends React.Component {
       <div>
         <header data-testid="ranking-title">Ranking</header>
         {ranking.map((player, index) => (
-            <div>
-              <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
-              <div>Nome: <span data-testid={`player-name-${index}`}>{player.name}</span></div>
-              <div>Score: <span data-testid={`player-score-${index}`}>{player.score}</span></div>
-            </div>
+          <div>
+            <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
+            <div>Nome: <span data-testid={`player-name-${index}`}>{player.name}</span></div>
+            <div>Score: <span data-testid={`player-score-${index}`}>{player.score}</span></div>
+          </div>
         ))}
         <button data-testid="btn-go-home" onClick={this.redirectPage}>
           Inicio
