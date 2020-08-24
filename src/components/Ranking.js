@@ -41,8 +41,8 @@ class Ranking extends React.Component {
           .map((player, index) => (
             <div>
               <img src={`https://www.gravatar.com/avatar/${hash}`} alt="Avatar" />
-              <div data-testid={`player-name-${index}`}>Nome: {player.name}</div>
-              <div data-testid={`player-score-${index}`}>Score: {player.score}</div>
+              <div>Nome: <span data-testid={`player-name-${index}`}>{player.name}</span></div>
+              <div>Score: <span data-testid={`player-score-${index}`}>{player.score}</span></div>
             </div>
         ))}
         <button data-testid="btn-go-home" onClick={this.redirectPage}>
