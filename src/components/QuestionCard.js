@@ -49,23 +49,21 @@ class QuestionCard extends React.Component {
   }
 
   handleClick() {
-    const { questionPosition, questions, changePositions, player } = this.props;
+    const { questionPosition, questions, changePositions } = this.props;
     if (questionPosition < questions.length - 1) {
       changePositions();
     } else {
       this.setState({ redirect: true });
     }
     this.setState({ button: false, right: '', wrong: '', buttonNext: false });
-    const { name, assertions, gravatarEmail, score } = player;
-    const playerInfo = { player: { name, assertions, score, gravatarEmail } };
-    localStorage.setItem('state', JSON.stringify(playerInfo));
     this.setState({ timer: 30 });
     this.myInterval = setInterval(this.changeState, 1000);
+    // talvez não seja necessário esse clearTimeOut
     clearTimeout(this.timer);
     this.timer = setTimeout(this.endTime, 30000);
   }
 
-  clickCorrect() {
+  async clickCorrect() {
     const { addScores, questions, questionPosition } = this.props;
     const difficulty = questions[questionPosition].difficulty;
     let level = 0;
@@ -77,9 +75,12 @@ class QuestionCard extends React.Component {
       level = 1;
     }
     const questionScore = (10 + (this.state.timer * level));
-    addScores(questionScore);
+    await addScores(questionScore);
     this.endTime();
-    clearInterval(this.myInterval);
+    await clearInterval(this.myInterval);
+    const { name, assertions, gravatarEmail, score } = this.props.player;
+    const playerInfo = { player: { name, assertions, score, gravatarEmail } };
+    localStorage.setItem('state', JSON.stringify(playerInfo));
   }
 
   clickIncorrect() {
@@ -108,7 +109,7 @@ class QuestionCard extends React.Component {
   render() {
     if (this.state.redirect) return <Redirect to="./feedback" />;
     const i = this.props.questionPosition;
-    if (!this.props.questions) return <div> Carregando Perguntas ...</div>;
+    if (!this.props.questions) return <div>Carregando Perguntas ...</div>;
     let counter = -1;
     const correctAnswer = this.props.questions[i].correct_answer;
     return (

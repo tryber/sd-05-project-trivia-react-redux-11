@@ -61,8 +61,10 @@ class Feedback extends React.Component {
           <div data-testid="header-score">{state.player.score}</div>
           {feedbackMessage()}
           <div data-testid="header-player-name">{state.player.name}</div>
-          <div data-testid="feedback-total-score">Score: {state.player.score}</div>
-          <div data-testid="feedback-total-question">Assertions: {state.player.assertions}</div>
+          <div>Score: <span data-testid="feedback-total-score">{state.player.score}</span></div>
+          <div>
+            Assertions:<span data-testid="feedback-total-question">{state.player.assertions}</span>
+          </div>
           <div>
             <img
               data-testid="header-profile-picture"
@@ -73,9 +75,7 @@ class Feedback extends React.Component {
             />
           </div>
         </header>
-        <button data-testid="btn-play-again" onClick={this.redirectInicio}>
-          Jogar Novamente
-        </button>
+        <button data-testid="btn-play-again" onClick={this.redirectInicio}>Jogar Novamente</button>
         <button data-testid="btn-ranking" onClick={this.redirectRanking}>
           Ver Ranking
         </button>

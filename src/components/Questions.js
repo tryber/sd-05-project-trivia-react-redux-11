@@ -34,11 +34,8 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    const { token, getQuestions, player } = this.props;
+    const { token, getQuestions } = this.props;
     getQuestions(token);
-    const { name, assertions, gravatarEmail, score } = player;
-    const playerInfo = { player: { name, assertions, score, gravatarEmail } };
-    localStorage.setItem('state', JSON.stringify(playerInfo));
   }
 
   render() {
@@ -50,7 +47,7 @@ class Questions extends React.Component {
     const { score } = this.props;
     return (
       <div>
-        <div data-testid="header-score">Score:{score}</div>
+        <div>Score:<span data-testid="header-score">{score}</span></div>
         <img
           data-testid="header-profile-picture"
           src={`https://www.gravatar.com/avatar/${localStorage.getItem('EmailMD5')}`} alt="avatar"
@@ -83,13 +80,6 @@ Questions.propTypes = {
   score: PropTypes.number.isRequired,
   token: PropTypes.string.isRequired,
   getQuestions: PropTypes.func.isRequired,
-  player: PropTypes.shape({
-    name: PropTypes.string,
-    hash: PropTypes.string,
-    score: PropTypes.number,
-    assertions: PropTypes.number,
-    gravatarEmail: PropTypes.string,
-  }).isRequired,
 };
 
 Questions.defaultProps = {
