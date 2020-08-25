@@ -112,7 +112,6 @@ class QuestionCard extends React.Component {
     if (!this.props.questions) return <div>Carregando Perguntas ...</div>;
     let counter = -1;
     const correctAnswer = this.props.questions[i].correct_answer;
-    console.log(correctAnswer);
     return (
       <div>
         <div>
