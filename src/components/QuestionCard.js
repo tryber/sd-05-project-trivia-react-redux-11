@@ -109,9 +109,10 @@ class QuestionCard extends React.Component {
   render() {
     if (this.state.redirect) return <Redirect to="./feedback" />;
     const i = this.props.questionPosition;
-    if (!this.props.questions) return <div> Carregando Perguntas ...</div>;
+    if (!this.props.questions) return <div>Carregando Perguntas ...</div>;
     let counter = -1;
     const correctAnswer = this.props.questions[i].correct_answer;
+    console.log(correctAnswer);
     return (
       <div>
         <div>

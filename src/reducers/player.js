@@ -18,6 +18,8 @@ const player = (state = INITIAL_STATE, action) => {
         name: action.name,
         hash: action.hash,
         gravatarEmail: action.email,
+        score: 0,
+        assertions: 0,
       };
     case ADD_SCORE:
       return {
