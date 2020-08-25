@@ -63,7 +63,7 @@ class QuestionCard extends React.Component {
     this.timer = setTimeout(this.endTime, 30000);
   }
 
-  clickCorrect() {
+  async clickCorrect() {
     const { addScores, questions, questionPosition } = this.props;
     const difficulty = questions[questionPosition].difficulty;
     let level = 0;
@@ -75,9 +75,9 @@ class QuestionCard extends React.Component {
       level = 1;
     }
     const questionScore = (10 + (this.state.timer * level));
-    addScores(questionScore);
+    await addScores(questionScore);
     this.endTime();
-    clearInterval(this.myInterval);
+    await clearInterval(this.myInterval);
     const { name, assertions, gravatarEmail, score } = this.props.player;
     const playerInfo = { player: { name, assertions, score, gravatarEmail } };
     localStorage.setItem('state', JSON.stringify(playerInfo));
